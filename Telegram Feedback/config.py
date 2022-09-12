@@ -1,0 +1,5 @@
+TOKEN = '5407584389:AAGVz_ZimvauZn3kwYdjiVvt_Q2bncm2_Lg'
+OWNER = ''
+ADMIN = ''
+HELPER = ''
+TEST = ''
