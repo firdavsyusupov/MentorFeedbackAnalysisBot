@@ -12,7 +12,7 @@ from aiogram.types import ReplyKeyboardRemove
 
 bot = Bot(token=config.TOKEN)
 dp = Dispatcher(bot)
-db = Databasee('db_astrum (3).db')
+db = Databasee('astrum.db')
 
 
 @dp.message_handler(commands=['start'])
