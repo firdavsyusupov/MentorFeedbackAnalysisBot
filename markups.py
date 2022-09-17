@@ -50,6 +50,23 @@ mentor_ads_7 = InlineKeyboardButton("Arslanova Nodira", callback_data='am7')
 mentor_ads_8 = InlineKeyboardButton("Alimbayeva Asalbonu", callback_data='am8')
 mentor_ads_9 = InlineKeyboardButton("Orifjonov Abdulaziz", callback_data='am9')
 
+
+mentor_admse_1 = InlineKeyboardButton("Komentariyalari", callback_data='admm1')
+adm_nodira = InlineKeyboardMarkup(row_width=1)
+adm_nodira.insert(mentor_admse_1)
+
+mentor_admse_2 = InlineKeyboardButton("Komentariyalari", callback_data='admm1')
+adm_nodira = InlineKeyboardMarkup(row_width=1)
+adm_nodira.insert(mentor_admse_1)
+# mentor_ase_2 = InlineKeyboardButton("Olloyorov Sirojiddin", callback_data='am2')
+# mentor_afs_3 = InlineKeyboardButton("Rasulov Rahmatulloh", callback_data='am3')
+# mentor_afs_4 = InlineKeyboardButton("Shomurodov Sarvarbek", callback_data='am4')
+# mentor_afs_5 = InlineKeyboardButton("Shukurov Jasur", callback_data='am5')
+# mentor_afs_6 = InlineKeyboardButton("Azizova Aziza", callback_data='am6')
+# mentor_ads_7 = InlineKeyboardButton("Arslanova Nodira", callback_data='am7')
+# mentor_ads_8 = InlineKeyboardButton("Alimbayeva Asalbonu", callback_data='am8')
+# mentor_ads_9 = InlineKeyboardButton("Orifjonov Abdulaziz", callback_data='am9')
+
 adm_mentors = InlineKeyboardButton('Barcha mentorlar', callback_data='adm_m')
 adm_ds_mentors = InlineKeyboardButton('Data Science', callback_data='adm_ds_m')
 adm_fs_mentors = InlineKeyboardButton('Full Stack', callback_data='adm_fs_m')
