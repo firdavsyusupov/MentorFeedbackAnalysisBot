@@ -1,17 +1,9 @@
 import config
-import logging
-import DateTime
-import numpy as np
 import markups as nav
-import glob, os, os.path
 from datetime import datetime
-from aiogram.dispatcher import FSMContext
 from aiogram import Bot, types, executor, Dispatcher
-from aiogram.types.message import ContentType, ContentTypes
-from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from sql_1 import Databasee
-from aiogram.types import ReplyKeyboardRemove
-from main import pie, all_bar_all, koment_bar
+from MentorFeedbackAnalysisBot.Analysis.main import pie, all_bar_all, koment_bar
 
 
 bot = Bot(token=config.TOKEN)
@@ -283,8 +275,7 @@ async def admin_system(message: types.CallbackQuery):
     img = open('/Users/student/PycharmProjects/bot/MentorFeedbackAnalysisBot/Analysis/imag/all_plots.png', 'rb')
     await message.message.delete()
     await bot.send_photo(message.from_user.id, img, 'Barcha mentorlarni analitikasi', reply_markup=nav.adm_menu)
-    #await bot.send_message(message.from_user.id, 'Mentorni tanglang', reply_markup=nav.amentors)
-    pass
+
 
 
 @dp.callback_query_handler(text='adm_ds_m')
@@ -301,11 +292,13 @@ async def admin_ds_system(message: types.CallbackQuery):
 async def admin_ds_system(message: types.CallbackQuery):
     await bot.send_message(message.from_user.id, 'Mentorni tanglang', reply_markup=nav.adm_se_m)
 
+
 @dp.callback_query_handler(text='am1')
 async def admin_nodira(message: types.CallbackQuery):
     pie("Azodov Sarvar")
-    img = open('/Users/student/PycharmProjects/bot/MentorFeedbackAnalysisBot/Analysis/imag/mentor_pie_plot.png', 'rb')
+    img = open('Analysis/imag/mentor_pie_plot.png', 'rb')
     await bot.send_photo(message.from_user.id, img, 'Azodov Sarvar', reply_markup=nav.adm_nodira)
+
 
 @dp.callback_query_handler(text='admm1')
 async def admin_nodira(message: types.CallbackQuery):
@@ -314,37 +307,47 @@ async def admin_nodira(message: types.CallbackQuery):
     await bot.send_photo(message.from_user.id, img, 'Arslanova Nodira qoyilgan kamentariyalar')
 
 
-
 @dp.callback_query_handler(text='am2')
 async def admin_nodira(message: types.CallbackQuery):
     pie("Olloyorov Sirojiddin")
-    img = open('/Users/student/PycharmProjects/bot/MentorFeedbackAnalysisBot/Analysis/imag/mentor_pie_plot.png', 'rb')
+    img = open('Analysis/imag/mentor_pie_plot.png', 'rb')
     await bot.send_photo(message.from_user.id, img, 'Olloyorov Sirojiddin')
+
+
 @dp.callback_query_handler(text='am3')
 async def admin_nodira(message: types.CallbackQuery):
     pie("Rasulov Rahmatulloh")
-    img = open('/Users/student/PycharmProjects/bot/MentorFeedbackAnalysisBot/Analysis/imag/mentor_pie_plot.png', 'rb')
+    img = open('Analysis/imag/mentor_pie_plot.png', 'rb')
     await bot.send_photo(message.from_user.id, img, 'Rasulov Rahmatulloh')
+
+
 @dp.callback_query_handler(text='am4')
 async def admin_nodira(message: types.CallbackQuery):
     pie("Shomurodov Sarvarbek")
-    img = open('/Users/student/PycharmProjects/bot/MentorFeedbackAnalysisBot/Analysis/imag/mentor_pie_plot.png', 'rb')
+    img = open('Analysis/imag/mentor_pie_plot.png', 'rb')
     await bot.send_photo(message.from_user.id, img, 'Shomurodov Sarvarbek')
+
+
 @dp.callback_query_handler(text='am5')
 async def admin_nodira(message: types.CallbackQuery):
     pie("Shukurov Jasur")
-    img = open('/Users/student/PycharmProjects/bot/MentorFeedbackAnalysisBot/Analysis/imag/mentor_pie_plot.png', 'rb')
+    img = open('Analysis/imag/mentor_pie_plot.png', 'rb')
     await bot.send_photo(message.from_user.id, img, 'Shukurov Jasur')
+
+
 @dp.callback_query_handler(text='am6')
 async def admin_nodira(message: types.CallbackQuery):
     pie("Azizova Aziza")
-    img = open('/Users/student/PycharmProjects/bot/MentorFeedbackAnalysisBot/Analysis/imag/mentor_pie_plot.png', 'rb')
+    img = open('Analysis/imag/mentor_pie_plot.png', 'rb')
     await bot.send_photo(message.from_user.id, img, 'Azizova Aziza')
+
+
 @dp.callback_query_handler(text='am7')
 async def admin_nodira(message: types.CallbackQuery):
     pie("Arslanova Nodira")
     img = open('/Users/student/PycharmProjects/bot/MentorFeedbackAnalysisBot/Analysis/imag/mentor_pie_plot.png', 'rb')
     await bot.send_photo(message.from_user.id, img, 'Arslanova Nodira umumiy analitikasi', reply_markup=nav.adm_nodira)
+
 
 @dp.callback_query_handler(text='admm1')
 async def admin_nodira(message: types.CallbackQuery):
@@ -356,12 +359,14 @@ async def admin_nodira(message: types.CallbackQuery):
 @dp.callback_query_handler(text='am8')
 async def admin_nodira(message: types.CallbackQuery):
     pie("Alimbayeva Asalbonu")
-    img = open('/Users/student/PycharmProjects/bot/MentorFeedbackAnalysisBot/Analysis/imag/mentor_pie_plot.png', 'rb')
+    img = open('Analysis/imag/mentor_pie_plot.png', 'rb')
     await bot.send_photo(message.from_user.id, img, 'Alimbayeva Asalbonu')
+
+
 @dp.callback_query_handler(text='am9')
 async def admin_nodira(message: types.CallbackQuery):
     pie("Orifjonov Abdulaziz")
-    img = open('/Users/student/PycharmProjects/bot/MentorFeedbackAnalysisBot/Analysis/imag/mentor_pie_plot.png', 'rb')
+    img = open('Analysis/imag/mentor_pie_plot.png', 'rb')
     await bot.send_photo(message.from_user.id, img, 'Orifjonov Abdulaziz')
 
 

@@ -96,7 +96,7 @@ afsmentors.insert(mentor_afs_3)
 adm_analysis = InlineKeyboardMarkup(row_width=1)
 adm_analysis.insert(adm_mentors)
 adm_analysis.insert(adm_ds_mentors)
-adm_analysis.insert(adm_ds_mentors)
+adm_analysis.insert(adm_fs_mentors)
 adm_analysis.insert(adm_se_mentors)
 
 btn_admBackMenu = KeyboardButton('Back')
