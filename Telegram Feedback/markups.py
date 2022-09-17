@@ -7,7 +7,7 @@ se = InlineKeyboardButton('SoftWere Engineer', callback_data='se')
 btn_start = KeyboardButton('Reaktsiya qoldirish')
 btn_ds = KeyboardButton('Data Science')
 btn_fs = KeyboardButton('Full Stack')
-btn_se = KeyboardButton('SoftWere Engineer')
+btn_se = KeyboardButton('Software Engineer')
 
 bad = InlineKeyboardButton('qoniqarsiz☹️', callback_data='bad')
 good = InlineKeyboardButton('qoniqarli😐', callback_data='good')
@@ -36,13 +36,71 @@ mentor_ds_7 = InlineKeyboardButton("Arslanova Nodira", callback_data='m7')
 mentor_ds_8 = InlineKeyboardButton("Alimbayeva Asalbonu", callback_data='m8')
 mentor_ds_9 = InlineKeyboardButton("Orifjonov Abdulaziz", callback_data='m9')
 
+#                   ________________________________________
+# ================================= ADMIN ===========================================
+#                   ________________________________________
+
+mentor_ase_1 = InlineKeyboardButton("Azodov Sarvar", callback_data='am1')
+mentor_ase_2 = InlineKeyboardButton("Olloyorov Sirojiddin", callback_data='am2')
+mentor_afs_3 = InlineKeyboardButton("Rasulov Rahmatulloh", callback_data='am3')
+mentor_afs_4 = InlineKeyboardButton("Shomurodov Sarvarbek", callback_data='am4')
+mentor_afs_5 = InlineKeyboardButton("Shukurov Jasur", callback_data='am5')
+mentor_afs_6 = InlineKeyboardButton("Azizova Aziza", callback_data='am6')
+mentor_ads_7 = InlineKeyboardButton("Arslanova Nodira", callback_data='am7')
+mentor_ads_8 = InlineKeyboardButton("Alimbayeva Asalbonu", callback_data='am8')
+mentor_ads_9 = InlineKeyboardButton("Orifjonov Abdulaziz", callback_data='am9')
+
+adm_mentors = InlineKeyboardButton('Barcha mentorlar', callback_data='adm_m')
+adm_ds_mentors = InlineKeyboardButton('Data Science', callback_data='adm_ds_m')
+adm_fs_mentors = InlineKeyboardButton('Full Stack', callback_data='adm_fs_m')
+adm_se_mentors = InlineKeyboardButton('Software Engineer', callback_data='adm_se_m')
+
+amentors = InlineKeyboardMarkup(row_width=1)
+amentors.insert(mentor_ase_1)
+amentors.insert(mentor_ase_2)
+amentors.insert(mentor_afs_3)
+amentors.insert(mentor_afs_4)
+amentors.insert(mentor_afs_5)
+amentors.insert(mentor_afs_6)
+amentors.insert(mentor_ads_7)
+amentors.insert(mentor_ads_8)
+amentors.insert(mentor_ads_9)
+
+
+adsmentors = InlineKeyboardMarkup(row_width=1)
+adsmentors.insert(mentor_ads_7)
+adsmentors.insert(mentor_ads_8)
+adsmentors.insert(mentor_ads_9)
+
+afsmentors = InlineKeyboardMarkup(row_width=1)
+afsmentors.insert(mentor_afs_3)
+#afsmentors.insert(mentor)
+
+adm_analysis = InlineKeyboardMarkup(row_width=1)
+adm_analysis.insert(adm_mentors)
+adm_analysis.insert(adm_ds_mentors)
+adm_analysis.insert(adm_ds_mentors)
+adm_analysis.insert(adm_se_mentors)
+
+btn_admBackMenu = KeyboardButton('Back')
+btn_week = KeyboardButton('Hafta')
+btn_day = KeyboardButton('Kun')
+
+btn_adminMenu = ReplyKeyboardMarkup(resize_keyboard=True)
+btn_adminMenu.add(btn_week)
+btn_adminMenu.add(btn_day)
+
+adm_menu = ReplyKeyboardMarkup(resize_keyboard=True)
+adm_menu.add(btn_admBackMenu)
+
+# ===================================================================================
 
 direction = InlineKeyboardMarkup(row_width=1)
 direction.insert(ds)
 direction.insert(fs)
 direction.insert(se)
 
-mainMenu = ReplyKeyboardMarkup(resize_keyboard= True)
+mainMenu = ReplyKeyboardMarkup(resize_keyboard=True)
 mainMenu.add(btn_start)
 
 directionMenu = ReplyKeyboardMarkup(resize_keyboard=True)

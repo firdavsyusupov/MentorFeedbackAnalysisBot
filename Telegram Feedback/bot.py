@@ -1,8 +1,10 @@
 import config
 import logging
+import DateTime
 import numpy as np
 import markups as nav
 import glob, os, os.path
+from datetime import datetime
 from aiogram.dispatcher import FSMContext
 from aiogram import Bot, types, executor, Dispatcher
 from aiogram.types.message import ContentType, ContentTypes
@@ -12,7 +14,7 @@ from aiogram.types import ReplyKeyboardRemove
 
 bot = Bot(token=config.TOKEN)
 dp = Dispatcher(bot)
-db = Databasee('astrum.db')
+db = Databasee('db_astrum (3).db')
 
 
 @dp.message_handler(commands=['start'])
@@ -27,11 +29,8 @@ async def start(message: types.Message):
 @dp.callback_query_handler(text='ds')
 async def ds(message: types.CallbackQuery):
     if db.get_signup(message.from_user.id) == 'settext':
-
-        #if db.get_signup(message.from_user.id) == 'setdirection':
         db.set_directions(message.from_user.id, 'ds')
         db.set_signup(message.from_user.id, 'done')
-        #await bot.delete_message(message.from_user.id, message.message_id)
         user_id = message.message.from_user.id
         await message.message.delete()
         await bot.send_message(message.from_user.id, "O'z Munosabatingizni qoldirishingizni iltimos qilamiz!",
@@ -59,21 +58,28 @@ async def se(message: types.CallbackQuery):
         db.set_directions(message.from_user.id, 'se')
         db.set_signup(message.from_user.id, 'done')
 
+# =========================================== MENTORS ==================================================================
+
 
 @dp.callback_query_handler(text='m1')
 async def m1(message: types.CallbackQuery):
     user_id = message.message.from_user.id
     await message.message.delete()
-    #if db.add_mentor(message.from_user.id) == 'setmentor':
     db.add_users(message.from_user.id)
     db.add_mentor(message.from_user.id, 'Azodov Sarvar')
-    await bot.send_message(message.from_user.id, 'Reaktsiya qoldiring', reply_markup=nav.estimation)
+    bir = 1
+    if db.get_limit(message.from_user.id) >= bir:
+        await bot.send_message(message.from_user.id, 'Bugun cheklovdan oshib ketdi')
+    else:
+        await bot.send_message(message.from_user.id, 'Reaktsiya qoldiring', reply_markup=nav.estimation)
+        db.add_lim(message.from_user.id, 1)
 
 
 @dp.callback_query_handler(text='m2')
 async def m2(message: types.CallbackQuery):
     user_id = message.message.from_user.id
     await message.message.delete()
+    db.add_users(message.from_user.id)
     db.add_mentor(message.from_user.id, "Olloyorov Sirojiddin")
     await bot.send_message(message.from_user.id, 'Reaktsiya qoldiring', reply_markup=nav.estimation)
 
@@ -82,6 +88,7 @@ async def m2(message: types.CallbackQuery):
 async def m3(message: types.CallbackQuery):
     user_id = message.message.from_user.id
     await message.message.delete()
+    db.add_users(message.from_user.id)
     db.add_mentor(message.from_user.id, 'Rasulov Rahmatulloh')
     await bot.send_message(message.from_user.id, 'Reaktsiya qoldiring', reply_markup=nav.estimation)
 
@@ -90,6 +97,7 @@ async def m3(message: types.CallbackQuery):
 async def m4(message: types.CallbackQuery):
     user_id = message.message.from_user.id
     await message.message.delete()
+    db.add_users(message.from_user.id)
     db.add_mentor(message.from_user.id, "Shomurodov Sarvarbek")
     await bot.send_message(message.from_user.id, 'Reaktsiya qoldiring', reply_markup=nav.estimation)
 
@@ -98,6 +106,7 @@ async def m4(message: types.CallbackQuery):
 async def m5(message: types.CallbackQuery):
     user_id = message.message.from_user.id
     await message.message.delete()
+    db.add_users(message.from_user.id)
     db.add_mentor(message.from_user.id, "Shukurov Jasur")
     await bot.send_message(message.from_user.id, 'Reaktsiya qoldiring', reply_markup=nav.estimation)
 
@@ -106,6 +115,7 @@ async def m5(message: types.CallbackQuery):
 async def m6(message: types.CallbackQuery):
     user_id = message.message.from_user.id
     await message.message.delete()
+    db.add_users(message.from_user.id)
     db.add_mentor(message.from_user.id, "Azizova Aziza")
     await bot.send_message(message.from_user.id, 'Reaktsiya qoldiring', reply_markup=nav.estimation)
 
@@ -114,6 +124,7 @@ async def m6(message: types.CallbackQuery):
 async def m7(message: types.CallbackQuery):
     user_id = message.message.from_user.id
     await message.message.delete()
+    db.add_users(message.from_user.id)
     db.add_mentor(message.from_user.id, "Arslanova Nodira")
     await bot.send_message(message.from_user.id, 'Reaktsiya qoldiring', reply_markup=nav.estimation)
 
@@ -122,7 +133,7 @@ async def m7(message: types.CallbackQuery):
 async def m8(message: types.CallbackQuery):
     user_id = message.message.from_user.id
     await message.message.delete()
-    db.add_mentor(message.from_user.id, "Alimbayeva Asalbonu")
+    db.add_mentor("Alimbayeva Asalbonu")
     await bot.send_message(message.from_user.id, 'Reaktsiya qoldiring', reply_markup=nav.estimation)
 
 
@@ -130,52 +141,11 @@ async def m8(message: types.CallbackQuery):
 async def m9(message: types.CallbackQuery):
     user_id = message.message.from_user.id
     await message.message.delete()
-    db.add_mentor(message.from_user.id,"Orifjonov Abdulaziz")
+    db.add_users(message.from_user.id)
+    db.add_mentor(message.from_user.id, "Orifjonov Abdulaziz")
     await bot.send_message(message.from_user.id, 'Reaktsiya qoldiring', reply_markup=nav.estimation)
 
-
-@dp.callback_query_handler(text='bc1')
-async def bc1(message: types.CallbackQuery):
-    pass
-
-
-@dp.callback_query_handler(text='bc2')
-async def bc1(message: types.CallbackQuery):
-    pass
-
-
-@dp.callback_query_handler(text='bc3')
-async def bc1(message: types.CallbackQuery):
-    pass
-
-@dp.callback_query_handler(text='bdc1')
-async def bc1(message: types.CallbackQuery):
-    pass
-
-@dp.callback_query_handler(text='bdc2')
-async def bc1(message: types.CallbackQuery):
-    pass
-
-@dp.callback_query_handler(text='bdc3')
-async def bc1(message: types.CallbackQuery):
-    pass
-
-@dp.callback_query_handler(text='btc1')
-async def bc1(message: types.CallbackQuery):
-    pass
-
-@dp.callback_query_handler(text='btc2')
-async def bc1(message: types.CallbackQuery):
-    pass
-
-@dp.callback_query_handler(text='btc3')
-async def bc1(message: types.CallbackQuery):
-    pass
-
-@dp.callback_query_handler(text='btc4')
-async def bc1(message: types.CallbackQuery):
-    pass
-
+# ====================================----COMENT----======================================================
 
 
 @dp.callback_query_handler(text='bad')
@@ -201,13 +171,140 @@ async def ds(message: types.CallbackQuery):
     await bot.send_message(message.from_user.id, "Sababini tanlang",
                            reply_markup=nav.great_comment)
 
+# ====================================================================================================================
+
+
+@dp.callback_query_handler(text='bc1')
+async def bc1(message: types.CallbackQuery):
+    user_id = message.message.from_user.id
+    time = datetime.now()
+    await message.message.delete()
+    db.add_users(message.from_user.id)
+    db.date_time(message.from_user.id, time)
+    db.add_qoniqarsiz(message.from_user.id, "Mentor o'z vaqtida ish joyida yo'q")
+    # db.add_users(message.from_user.id, time)
+    # db.add_users(message.from_user.id, "Mentor o'z vaqtida ish joyida yo'q")
+    await bot.send_message(message.from_user.id, 'Reaktsiya qoldirganiz uchun rahmat😊', reply_markup=nav.mainMenu)
+
+
+@dp.callback_query_handler(text='bc2')
+async def bc1(message: types.CallbackQuery):
+    user_id = message.message.from_user.id
+    await message.message.delete()
+    db.add_users(message.from_user.id)
+    db.add_qoniqarsiz(message.from_user.id, "Mentor umuman yordam bera olmadi")
+    await bot.send_message(message.from_user.id, 'Reaktsiya qoldirganiz uchun rahmat😊', reply_markup=nav.mainMenu)
+
+
+@dp.callback_query_handler(text='bc3')
+async def bc1(message: types.CallbackQuery):
+    user_id = message.message.from_user.id
+    await message.message.delete()
+    db.add_users(message.from_user.id)
+    db.add_qoniqarsiz(message.from_user.id, "Mentor yordam berishdan bosh tortdi")
+    await bot.send_message(message.from_user.id, 'Reaktsiya qoldirganiz uchun rahmat😊', reply_markup=nav.mainMenu)
+
+
+@dp.callback_query_handler(text='gdc1')
+async def bc1(message: types.CallbackQuery):
+    user_id = message.message.from_user.id
+    await message.message.delete()
+    db.add_users(message.from_user.id)
+    db.add_qoniqarsiz(message.from_user.id, "Mentor ish joyiga kech keldi")
+    await bot.send_message(message.from_user.id, 'Reaktsiya qoldirganiz uchun rahmat😊', reply_markup=nav.mainMenu)
+
+
+@dp.callback_query_handler(text='gdc2')
+async def bc1(message: types.CallbackQuery):
+    user_id = message.message.from_user.id
+    await message.message.delete()
+    db.add_users(message.from_user.id)
+    db.add_qoniqarsiz(message.from_user.id, "Mentor savolimga toliq jovob berolmadi")
+    await bot.send_message(message.from_user.id, 'Reaktsiya qoldirganiz uchun rahmat😊', reply_markup=nav.mainMenu)
+
+
+@dp.callback_query_handler(text='gdc3')
+async def bc1(message: types.CallbackQuery):
+    user_id = message.message.from_user.id
+    await message.message.delete()
+    db.add_users(message.from_user.id)
+    db.add_qoniqarsiz(message.from_user.id, "Mentor javob berdi ammo muomilasizlik blan")
+    await bot.send_message(message.from_user.id, 'Reaktsiya qoldirganiz uchun rahmat😊', reply_markup=nav.mainMenu)
+
+
+@dp.callback_query_handler(text='gtc1')
+async def bc1(message: types.CallbackQuery):
+    user_id = message.message.from_user.id
+    await message.message.delete()
+    db.add_users(message.from_user.id)
+    db.add_qoniqarsiz(message.from_user.id, "Mentor o'z vaqtida ish joyida")
+    await bot.send_message(message.from_user.id, 'Reaktsiya qoldirganiz uchun rahmat😊', reply_markup=nav.mainMenu)
+
+
+@dp.callback_query_handler(text='gtc2')
+async def bc1(message: types.CallbackQuery):
+    user_id = message.message.from_user.id
+    await message.message.delete()
+    db.add_users(message.from_user.id)
+    db.add_qoniqarsiz(message.from_user.id, "Mentor barcha savoimga javob berdi")
+    await bot.send_message(message.from_user.id, 'Reaktsiya qoldirganiz uchun rahmat😊', reply_markup=nav.mainMenu)
+
+
+@dp.callback_query_handler(text='gtc3')
+async def bc1(message: types.CallbackQuery):
+    user_id = message.message.from_user.id
+    await message.message.delete()
+    db.add_users(message.from_user.id)
+    db.add_qoniqarsiz(message.from_user.id, "Mentor juda ham yaxshi tushuntirdi")
+    await bot.send_message(message.from_user.id, 'Reaktsiya qoldirganiz uchun rahmat😊', reply_markup=nav.mainMenu)
+
+
+@dp.callback_query_handler(text='gtc4')
+async def bc1(message: types.CallbackQuery):
+    user_id = message.message.from_user.id
+    await message.message.delete()
+    db.add_users(message.from_user.id)
+    db.add_qoniqarsiz(message.from_user.id, "Mentor yangicha va qiziqarli usulda taqdimot qilib tushuntirdi")
+    await bot.send_message(message.from_user.id, 'Reaktsiya qoldirganiz uchun rahmat😊', reply_markup=nav.mainMenu)
+
+# ========================================== ADMIN ===================================================================
+
+@dp.message_handler(commands=['admin'])
+async def admin_system(message: types.Message):
+    await bot.send_message(message.from_user.id, 'Please enter password')
+
+
+@dp.callback_query_handler(text='adm_m')
+async def admin_system(message: types.CallbackQuery):
+    user_id = message.message.from_user.id
+    img = open('image/all_plots.png', 'rb')
+    await message.message.delete()
+    await bot.send_photo(message.from_user.id, img, 'Barcha mentorlarni analitikasi', reply_markup=nav.adm_menu)
+    #await bot.send_message(message.from_user.id, 'Mentorni tanglang', reply_markup=nav.amentors)
+    pass
+
+
+@dp.callback_query_handler(text='adm_ds_m')
+async def admin_ds_system(message: types.CallbackQuery):
+    await bot.send_message(message.from_user.id, 'Mentorni tanglang', reply_markup=nav.adm_ds_m)
+
+
+@dp.callback_query_handler(text='adm_fs_m')
+async def admin_ds_system(message: types.CallbackQuery):
+    await bot.send_message(message.from_user.id, 'Mentorni tanglang', reply_markup=nav.adm_fs_m)
+
+
+@dp.callback_query_handler(text='adm_se_m')
+async def admin_ds_system(message: types.CallbackQuery):
+    await bot.send_message(message.from_user.id, 'Mentorni tanglang', reply_markup=nav.adm_se_m)
+
+# ==========================================+++++++===================================================================
 
 @dp.message_handler(content_types=['text'])
 async def other_message(message: types.Message):
     if message.chat.type == 'private':
         if message.text == 'Reaktsiya qoldirish':
             await bot.send_message(message.from_user.id, 'Assalomu aleykum 😊', reply_markup=types.ReplyKeyboardRemove())
-            #await bot.send_message(message.from_user.id, 'Mentorni tanglang', reply_markup=nav.mentors)
             if db.get_directions(message.from_user.id) == 'ds':
                 await bot.send_message(message.from_user.id, 'Mentorni tanglang', reply_markup=nav.ds_mentors)
             elif db.get_directions(message.from_user.id) == 'fs':
@@ -215,13 +312,14 @@ async def other_message(message: types.Message):
             elif db.get_directions(message.from_user.id) == 'se':
                 await bot.send_message(message.from_user.id, 'Mentorni tanglang', reply_markup=nav.se_mentors)
 
+        if message.text == 'astrum#2021':
+            await bot.send_message(message.from_user.id, 'Welcome to admin system :)')
+            await bot.send_message(message.from_user.id, 'Analysis', reply_markup=nav.adm_analysis)
 
+        if message.text == 'Back':
+            await bot.send_message(message.from_user.id, 'Bosh Menu', reply_markup=types.ReplyKeyboardRemove())
+            await bot.send_message(message.from_user.id, 'Analysis', reply_markup=nav.adm_analysis)
 
-        if message.text == 'Data Science':
-            await bot.send_message(message.from_user.id, 'Ok', reply_markup=nav.direction.ReplyKeyboardRemove())
-            if db.get_signup(message.from_user.id) == 'settext':
-                db.set_directions(message.from_user.id, 'ds')
-                db.set_signup(message.from_user.id, 'done')
 
 while True:
     try:
