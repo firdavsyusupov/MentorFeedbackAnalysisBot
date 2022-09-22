@@ -1,31 +1,144 @@
+from google.oauth2 import service_account
+
 import config
 import markups as nav
 from datetime import datetime
 from aiogram import Bot, types, executor, Dispatcher
 from sql_1 import Databasee
-from MentorFeedbackAnalysisBot.Analysis.main import pie, all_bar_all, koment_bar
+from main import pie, all_bar_all, koment_bar
+"""__________________________________________________"""
+import pandas as pd
+from googleapiclient.discovery import build
 
+import datetime
+
+service_account_file = '../google_sheets/astrum-362912-af084cf04b2f.json'
+SCOPES = ["https://spreadsheets.google.com/feeds", 'https://www.googleapis.com/auth/spreadsheets',
+          "https://www.googleapis.com/auth/drive.file", "https://www.googleapis.com/auth/drive"]
+
+creds = service_account.Credentials.from_service_account_file(service_account_file, scopes=SCOPES)
+# The ID and range of a sample spreadsheet.
+SAMPLE_SPREADSHEET_ID = '1G2b1LZMEiIYO1XaB0QrpzFmb-LWtZNNCPusy4xvt6R8'
+
+service = build('sheets', 'v4', credentials=creds)
+
+# Call the Sheets API
+sheet = service.spreadsheets()
+
+
+# UPDATED_MESSAGES = [["bir"]]
+# sheet.values().update(spreadsheetId=SAMPLE_SPREADSHEET_ID,
+#                       range=f"data!A2", valueInputOption="USER_ENTERED",
+#                       body={'values': UPDATED_MESSAGES}).execute()
+
+
+def rldate():
+    day = datetime.datetime.now()
+    return f"{day.year}-{day.month}-{day.day}"
+
+
+row_num = 0
+DATA = pd.DataFrame(columns=["User_id", "Date", "Mentor", "Qoniqarsiz", "Qoniqarli", "Namunali"], index=range(0, 10))
+
+
+def user_check(user):
+    x = DATA[DATA["User_id"] == user].index
+    y = DATA["Date"][x].values
+    z = DATA["Mentor"][x].values
+    day = datetime.datetime.now()
+    day = f"{day.year}-{day.month}-{day.day}"
+    if day in y:
+        return True
+    else:
+        return False
+
+
+def add_user(user):
+    DATA.User_id[row_num] = user
+    day = datetime.datetime.now()
+    day = f"{day.year}-{day.month}-{day.day}"
+    DATA.Date[row_num] = day
+    globals()['row_num'] += 1
+
+
+def add_mentor(user, mentor_name):
+    x = DATA[DATA["User_id"] == user].index
+    DATA["Mentor"][x] = mentor_name
+
+
+def add_qoniqarsiz(user, koment):
+    x = DATA[DATA["User_id"] == user].index
+    DATA["Qoniqarsiz"][x] = koment
+
+
+def add_qoniqarli(user, koment):
+    x = DATA[DATA["User_id"] == user].index
+    DATA["Qoniqarli"][x] = koment
+
+
+def add_namunalili(user, koment):
+    x = DATA[DATA["User_id"] == user].index
+    DATA["Namunali"][x] = koment
+
+
+global frame_num
+frame_num = 0
+
+global sheets_num
+sheets_num = 2
+
+
+def add_sheets_qoniqarsiz():
+    UPDATED_MESSAGES = [[ DATA.iloc[frame_num].values[0], DATA.iloc[frame_num].values[1], DATA.iloc[frame_num].values[2],
+                         DATA.iloc[frame_num].values[3], None, None ]]
+    sheet.values().update(spreadsheetId=SAMPLE_SPREADSHEET_ID,
+                          range=f"data!A{sheets_num}", valueInputOption="USER_ENTERED",
+                          body={'values': UPDATED_MESSAGES}).execute()
+    globals()["sheets_num"] += 1
+    globals()["frame_num"] += 1
+
+
+def add_sheets_qoniqarli():
+    UPDATED_MESSAGES = [
+        [DATA.iloc[frame_num].values[0], DATA.iloc[frame_num].values[1], DATA.iloc[frame_num].values[2], None,
+         DATA.iloc[frame_num].values[3]]]
+    sheet.values().update(spreadsheetId=SAMPLE_SPREADSHEET_ID,
+                          range=f"data!A{sheets_num}", valueInputOption="USER_ENTERED",
+                          body={'values': UPDATED_MESSAGES}).execute()
+    globals()["sheets_num"] += 1
+    globals()["frame_num"] += 1
+
+
+def add_sheets_namunali():
+    UPDATED_MESSAGES = [
+        [DATA.iloc[frame_num].values[0], DATA.iloc[frame_num].values[1], DATA.iloc[frame_num].values[2], None, None,
+         DATA.iloc[frame_num].values[3]]]
+    sheet.values().update(spreadsheetId=SAMPLE_SPREADSHEET_ID,
+                          range=f"data!A{sheets_num}", valueInputOption="USER_ENTERED",
+                          body={'values': UPDATED_MESSAGES}).execute()
+    globals()["sheets_num"] += 1
+    globals()["frame_num"] += 1
+
+
+"""___________________________________________________________________________________"""
 
 bot = Bot(token=config.TOKEN)
 dp = Dispatcher(bot)
-db = Databasee('db_astrum (3).db')
+db = Databasee('db_astrum.db')
 
 
 @dp.message_handler(commands=['start'])
 async def start(message: types.Message):
-    if not db.user_exists(message.from_user.id):
-        db.add_user(message.from_user.id)
-        await bot.send_message(message.from_user.id, 'Yonalshingizni tanlang', reply_markup=nav.direction)
-    else:
-        await bot.send_message(message.from_user.id, "Salom :)", reply_markup=nav.mainMenu)
+    await bot.send_message(message.from_user.id, 'Yonalshingizni tanlang', reply_markup=nav.direction)
+
 
 
 @dp.callback_query_handler(text='ds')
 async def ds(message: types.CallbackQuery):
-    if db.get_signup(message.from_user.id) == 'settext':
-        db.set_directions(message.from_user.id, 'ds')
-        db.set_signup(message.from_user.id, 'done')
-        user_id = message.message.from_user.id
+    if user_check(message.from_user.id):
+        await bot.send_message(message.from_user.id, "Bir kunda bir marotaba reaksiya qoldira olasiz!")
+    else:
+        add_user(message.from_user.id)  # by Islom
         await message.message.delete()
         await bot.send_message(message.from_user.id, "O'z Munosabatingizni qoldirishingizni iltimos qilamiz!",
                                reply_markup=nav.mainMenu)
@@ -44,7 +157,6 @@ async def fs(message: types.CallbackQuery):
 
 @dp.callback_query_handler(text='se')
 async def se(message: types.CallbackQuery):
-    user_id = message.message.from_user.id
     await message.message.delete()
     await bot.send_message(message.from_user.id, "O'z Munosabatingizni qoldirishingizni iltimos qilamiz!",
                            reply_markup=nav.mainMenu)
@@ -58,20 +170,22 @@ async def se(message: types.CallbackQuery):
 @dp.callback_query_handler(text='m1')
 async def m1(message: types.CallbackQuery):
     user_id = message.message.from_user.id
+    add_mentor(user_id, 'Azodov Sarvar')
     await message.message.delete()
     db.add_users(message.from_user.id)
     db.add_mentor(message.from_user.id, 'Azodov Sarvar')
-    bir = 1
-    if db.get_limit(message.from_user.id) >= bir:
-        await bot.send_message(message.from_user.id, 'Bugun cheklovdan oshib ketdi')
-    else:
-        await bot.send_message(message.from_user.id, 'Reaktsiya qoldiring', reply_markup=nav.estimation)
-        db.add_lim(message.from_user.id, 1)
+    # bir = 1
+    # if db.get_limit(message.from_user.id) >= bir:
+    #     await bot.send_message(message.from_user.id, 'Bugun cheklovdan oshib ketdi')
+    # else:
+    #     await bot.send_message(message.from_user.id, 'Reaktsiya qoldiring', reply_markup=nav.estimation)
+    #     db.add_lim(message.from_user.id, 1)
 
 
 @dp.callback_query_handler(text='m2')
 async def m2(message: types.CallbackQuery):
     user_id = message.message.from_user.id
+    add_mentor(user_id, 'Olloyorov Sirojiddin')
     await message.message.delete()
     db.add_users(message.from_user.id)
     db.add_mentor(message.from_user.id, "Olloyorov Sirojiddin")
@@ -81,6 +195,7 @@ async def m2(message: types.CallbackQuery):
 @dp.callback_query_handler(text='m3')
 async def m3(message: types.CallbackQuery):
     user_id = message.message.from_user.id
+    add_mentor(user_id, 'Rasulov Rahmatulloh')
     await message.message.delete()
     db.add_users(message.from_user.id)
     db.add_mentor(message.from_user.id, 'Rasulov Rahmatulloh')
@@ -116,11 +231,18 @@ async def m6(message: types.CallbackQuery):
 
 @dp.callback_query_handler(text='m7')
 async def m7(message: types.CallbackQuery):
-    user_id = message.message.from_user.id
+    user_id = message.from_user.id
+    add_mentor(user_id, 'Arslanova Nodira')
+    # print(a1)
+    # if a1:
+    #     await bot.send_message(user_id, "Siz bir kunda bir marta ovoz bera olasiz") #, reply_markup=nav.direction)
+    # else:
+    #     add_mentor(user_id, 'Arslanova Nodira')
     await message.message.delete()
-    db.add_users(message.from_user.id)
-    db.add_mentor(message.from_user.id, "Arslanova Nodira")
+    # db.add_users(message.from_user.id)
+    # db.add_mentor(message.from_user.id, "Arslanova Nodira")
     await bot.send_message(message.from_user.id, 'Reaktsiya qoldiring', reply_markup=nav.estimation)
+    print(DATA)
 
 
 @dp.callback_query_handler(text='m8')
@@ -170,11 +292,15 @@ async def ds(message: types.CallbackQuery):
 
 @dp.callback_query_handler(text='bc1')
 async def bc1(message: types.CallbackQuery):
-    user_id = message.message.from_user.id
-    time = datetime.now()
+    user_id = message.from_user.id
+    add_qoniqarsiz(user_id, "Mentor o'z vaqtida ish joyida yo'q")
+    # add_sheets_qoniqarsiz()
+        # await bot.send_message(message.from_user.id, 'Birkunda bir marta reaksiya qoldira olasiz')
+
+
     await message.message.delete()
     db.add_users(message.from_user.id)
-    db.date_time(message.from_user.id, time)
+    # db.date_time(message.from_user.id, time)
     db.add_qoniqarsiz(message.from_user.id, "Mentor o'z vaqtida ish joyida yo'q")
     # db.add_users(message.from_user.id, time)
     # db.add_users(message.from_user.id, "Mentor o'z vaqtida ish joyida yo'q")

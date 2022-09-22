@@ -36,7 +36,6 @@ def feak_dataset():
         data1.append( { "Date":rm_date, "Mentor":rm_mentor, ball_name:ball_value,} )
     return pd.DataFrame(data=data1, columns=columns)
 data = feak_dataset()
-
 # Kiritilgan sana boyicha mentorni datasetini olish
 def date_get(mentor, left=None, right=None):
     mentor = data[ data["Mentor"] == mentor ]

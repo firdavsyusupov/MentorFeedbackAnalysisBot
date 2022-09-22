@@ -1,7 +1,5 @@
 import sqlite3
 import datetime
-import pandas as pd
-from aiogram.dispatcher.filters.state import StatesGroup, State
 
 
 class Databasee:
