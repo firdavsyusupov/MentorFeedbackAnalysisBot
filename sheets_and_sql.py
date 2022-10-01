@@ -16,11 +16,12 @@ service = build('sheets', 'v4', credentials=creds)
 
 # Call the Sheets API
 sheet = service.spreadsheets()
-
 # def real_date_get():                        # search date = datetime.datetime(2022, 6, 1)   # 1-year, 2-mounth, 3-day
 #     day = datetime.datetime.now()           # left = datetime.datetime(2022, 6, 1)
 #     return day                              # right = datetime.datetime(2022, 6, 1)
 
+
+# ochirib tawiman bowqa faylga otkazganimdan keyn
 def rldate():
     day = datetime.datetime.now()
     return f"{day.year}-{day.month}-{day.day}"
@@ -148,9 +149,9 @@ class Database:
                 if x[0] not in list_id:
                    list_id.append(x[0])
             if user_id not in list_id:
-                return self.cursor.execute( f"INSERT INTO users (user) VALUES ( {user_id} )" )
+                return self.cursor.execute(f"INSERT INTO users (user) VALUES ({user_id})" )
 
 
     def get_data_all(self):
-        sql_query = pd.read_sql_query( "SELECT * FROM all_table", self.connection )
-        return pd.DataFrame( sql_query, columns = ['User_id', 'Date', 'Mentor', "Qoniqarsiz", "Qoniqarli", "Namunali"] )
+        sql_query = pd.read_sql_query("SELECT * FROM all_table", self.connection)
+        return pd.DataFrame(sql_query, columns=['User_id', 'Date', 'Mentor', "Qoniqarsiz", "Qoniqarli", "Namunali"])

@@ -1,16 +1,15 @@
-"""
-Islom Radjapov starting project ...
-"""
-
-# kutubhonalarni ornatish
 import pandas as pd
 import numpy as np
 import datetime
 import random
 import matplotlib.pyplot as plt
 from operator import itemgetter
+plt.style.use("dark_background")
+for param in ['text.color', 'axes.labelcolor', 'xtick.color', 'ytick.color']:
+    plt.rcParams[param] = '0.9'  # very light grey
+for param in ['figure.facecolor', 'axes.facecolor', 'savefig.facecolor']:
+    plt.rcParams[param] = '#212946'  # bluish dark grey
 
-# kerakli bo'lgan resurslar
 columns = [ "Date", "Mentor", "Qoniqarsiz", "Qoniqarli", "Namunali"]
 mentor_name = [ "Azodov Sarvar", "Olloyorov Sirojiddin", "Rasulov Rahmatulloh", "Shomurodov Sarvarbek", "Shukurov Jasur", "Azizova Aziza", "Arslanova Nodira", "Alimbayeva Asalbonu", "Orifjonov Abdulaziz" ]
 qoniqarsiz = ["Mentor o'z vaqtida ish joyida yo'q", "Mentor umuman yordam bera olmadi", "Mentor yordam berishdan bosh tortdi"]
@@ -24,7 +23,7 @@ baxo = {"Qoniqarsiz":qoniqarsiz,"Qoniqarli":qoniqarli, "Namunali":namunali }
 # left = datetime.datetime(2022, 6, 1)
 #
 # right = datetime.datetime(2022, 6, 1)
-def fake_date_get():
+def real_date_get():
     a = random.randint(1, 28)
     b = random.randint(1, 12)
     x = datetime.datetime(2022, b, a)
@@ -33,7 +32,7 @@ def fake_date_get():
 def feak_dataset():
     data1 = []
     for x in range(1000):
-        rm_date = fake_date_get()
+        rm_date = real_date_get()
         rm_mentor = random.choice(mentor_name)
         ball_name = random.choice(list( baxo.keys() ))
         ball_value = random.choice ( baxo[ball_name] )
@@ -107,13 +106,6 @@ def all_ball( left=None, right=None):
         all_data = date_get( x, left, right)
         data_dict[x] = int( mentor_umumiy_hulosa_olish_ball( all_data ) )
     return data_dict
-
-# vizuvalizatsiya uchun tema tanlash
-plt.style.use("dark_background")
-for param in ['text.color', 'axes.labelcolor', 'xtick.color', 'ytick.color']:
-    plt.rcParams[param] = '0.9'  # very light grey
-for param in ['figure.facecolor', 'axes.facecolor', 'savefig.facecolor']:
-    plt.rcParams[param] = '#212946'  # bluish dark grey
 
 # Mentorni datasetini kirgazsa bar plot shaklida reaksiyani vizualizatsiya qiladi
 def vizual_mentor_bar(data1):
