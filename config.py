@@ -1,4 +1,4 @@
-TOKEN = '5542699354:AAGSLMB7-wJgu0ofGk0VCCl9vLuYhsWGNYE'
+TOKEN = '???'
 OWNER = ''
 ADMIN = ''
 HELPER = ''
