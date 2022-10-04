@@ -1,5 +1,6 @@
 from aiogram.types import ReplyKeyboardRemove, ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardButton, InlineKeyboardMarkup
 
+# FOR USER
 ds = InlineKeyboardButton('Data Science', callback_data='ds')
 fs = InlineKeyboardButton('Full Stack', callback_data='fs')
 se = InlineKeyboardButton('SoftWere Engineer', callback_data='se')
@@ -21,7 +22,6 @@ good_comment_1 = InlineKeyboardButton("Mentor ish joyiga kech keldi", callback_d
 good_comment_2 = InlineKeyboardButton("Mentor savolimga toliq jovob berolmadi", callback_data='gdc2')
 good_comment_3 = InlineKeyboardButton("Mentor javob berdi ammo muomilasizlik blan", callback_data='gdc3')
 
-great_comment_1 = InlineKeyboardButton("Mentor o'z vaqtida ish joyida", callback_data='gtc1')
 great_comment_2 = InlineKeyboardButton("Mentor barcha savoimga javob berdi", callback_data='gtc2')
 great_comment_3 = InlineKeyboardButton("Mentor juda ham yaxshi tushuntirdi", callback_data='gtc3')
 great_comment_4 = InlineKeyboardButton("Mentor yangicha va qiziqarli usulda taqdimot qilib tushuntirdi", callback_data='gtc4')
@@ -51,21 +51,34 @@ mentor_ads_8 = InlineKeyboardButton("Alimbayeva Asalbonu", callback_data='am8')
 mentor_ads_9 = InlineKeyboardButton("Orifjonov Abdulaziz", callback_data='am9')
 
 
-mentor_admse_1 = InlineKeyboardButton("Komentariyalari", callback_data='admm1')
-adm_nodira = InlineKeyboardMarkup(row_width=1)
-adm_nodira.insert(mentor_admse_1)
+mentor_coment1 = InlineKeyboardButton("Komentariyalari", callback_data='coments_1')
+mentor_coment2 = InlineKeyboardButton("Komentariyalari", callback_data='coments_2')
+mentor_coment3 = InlineKeyboardButton("Komentariyalari", callback_data='coments_3')
+mentor_coment4 = InlineKeyboardButton("Komentariyalari", callback_data='coments_4')
+mentor_coment5 = InlineKeyboardButton("Komentariyalari", callback_data='coments_5')
+mentor_coment6 = InlineKeyboardButton("Komentariyalari", callback_data='coments_6')
+mentor_coment7 = InlineKeyboardButton("Komentariyalari", callback_data='coments_7')
+mentor_coment8 = InlineKeyboardButton("Komentariyalari", callback_data='coments_8')
+mentor_coment9 = InlineKeyboardButton("Komentariyalari", callback_data='coments_9')
 
-mentor_admse_2 = InlineKeyboardButton("Komentariyalari", callback_data='admm1')
-adm_nodira = InlineKeyboardMarkup(row_width=1)
-adm_nodira.insert(mentor_admse_1)
-# mentor_ase_2 = InlineKeyboardButton("Olloyorov Sirojiddin", callback_data='am2')
-# mentor_afs_3 = InlineKeyboardButton("Rasulov Rahmatulloh", callback_data='am3')
-# mentor_afs_4 = InlineKeyboardButton("Shomurodov Sarvarbek", callback_data='am4')
-# mentor_afs_5 = InlineKeyboardButton("Shukurov Jasur", callback_data='am5')
-# mentor_afs_6 = InlineKeyboardButton("Azizova Aziza", callback_data='am6')
-# mentor_ads_7 = InlineKeyboardButton("Arslanova Nodira", callback_data='am7')
-# mentor_ads_8 = InlineKeyboardButton("Alimbayeva Asalbonu", callback_data='am8')
-# mentor_ads_9 = InlineKeyboardButton("Orifjonov Abdulaziz", callback_data='am9')
+viewcoment1 = InlineKeyboardMarkup(row_width=1)
+viewcoment1.insert(mentor_coment1)
+viewcoment2 = InlineKeyboardMarkup(row_width=1)
+viewcoment2.insert(mentor_coment2)
+viewcoment3 = InlineKeyboardMarkup(row_width=1)
+viewcoment3.insert(mentor_coment3)
+viewcoment4 = InlineKeyboardMarkup(row_width=1)
+viewcoment4.insert(mentor_coment4)
+viewcoment5 = InlineKeyboardMarkup(row_width=1)
+viewcoment5.insert(mentor_coment5)
+viewcoment6 = InlineKeyboardMarkup(row_width=1)
+viewcoment6.insert(mentor_coment6)
+viewcoment7 = InlineKeyboardMarkup(row_width=1)
+viewcoment7.insert(mentor_coment7)
+viewcoment8 = InlineKeyboardMarkup(row_width=1)
+viewcoment8.insert(mentor_coment8)
+viewcoment9 = InlineKeyboardMarkup(row_width=1)
+viewcoment9.insert(mentor_coment9)
 
 adm_mentors = InlineKeyboardButton('Barcha mentorlar', callback_data='adm_m')
 adm_ds_mentors = InlineKeyboardButton('Data Science', callback_data='adm_ds_m')
@@ -91,7 +104,13 @@ adsmentors.insert(mentor_ads_9)
 
 afsmentors = InlineKeyboardMarkup(row_width=1)
 afsmentors.insert(mentor_afs_3)
-#afsmentors.insert(mentor)
+afsmentors.insert(mentor_afs_4)
+afsmentors.insert(mentor_afs_5)
+afsmentors.insert(mentor_afs_6)
+
+asementors = InlineKeyboardMarkup(row_width=1)
+asementors.insert(mentor_ase_1)
+asementors.insert(mentor_ase_2)
 
 adm_analysis = InlineKeyboardMarkup(row_width=1)
 adm_analysis.insert(adm_mentors)
@@ -109,6 +128,16 @@ btn_adminMenu.add(btn_day)
 
 adm_menu = ReplyKeyboardMarkup(resize_keyboard=True)
 adm_menu.add(btn_admBackMenu)
+
+# ADM LIST
+admPanel_ds = InlineKeyboardButton('Data Science', callback_data='ds_panel')
+admPanel_fs = InlineKeyboardButton('Full Stack', callback_data='fs_panel')
+admPanel_se = InlineKeyboardButton('Software Engineer', callback_data='se_panel')
+
+admPanel_DFS = InlineKeyboardMarkup(row_width=1)
+admPanel_DFS.insert(admPanel_ds)
+admPanel_DFS.insert(admPanel_fs)
+admPanel_DFS.insert(admPanel_se)
 
 # ===================================================================================
 
@@ -141,7 +170,6 @@ good_comment.insert(good_comment_2)
 good_comment.insert(good_comment_3)
 
 great_comment = InlineKeyboardMarkup(row_width=1)
-great_comment.insert(great_comment_1)
 great_comment.insert(great_comment_2)
 great_comment.insert(great_comment_3)
 great_comment.insert(great_comment_4)
